@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '12.11.1'  # Especifica la versión de Node.js que necesita tu proyecto
+          node-version: '16'  # Especifica la versión de Node.js que necesita tu proyecto
 
       # Paso 3: Instalar dependencias
       - name: Install dependencies
