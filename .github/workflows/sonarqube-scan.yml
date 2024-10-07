@@ -37,14 +37,12 @@ jobs:
 
       # Paso 5: Ejecutar análisis de SonarCloud
       - name: Run SonarCloud analysis
-        run: npx sonar-scanner
-        env:
-          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
-          SONAR_PROJECTKEY: front-organization-1234-1
-          SONAR_ORGANIZATION: front-organization-1234-1
-        with:
-          args: >
-            -Dsonar.projectKey=${{ env.SONAR_PROJECTKEY }}
-            -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
+        run: |
+          npx sonar-scanner \
+          -Dsonar.projectKey=${{ env.SONAR_PROJECTKEY }} \
+          -Dsonar.organization=${{ env.SONAR_ORGANIZATION }} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
+    env:
+      SONAR_PROJECTKEY: front-organization-1234-1
+      SONAR_ORGANIZATION: front-organization-1234-1
