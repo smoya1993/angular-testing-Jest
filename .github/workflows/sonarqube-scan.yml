@@ -37,7 +37,7 @@ jobs:
 
       # Paso 5: Compilar el proyecto Angular
       - name: Build project
-        run: npm run build -- --prod
+        run: npm run build
 
       # Paso 6: Ejecutar análisis de SonarCloud
       - name: Run SonarCloud analysis
