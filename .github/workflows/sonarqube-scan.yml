@@ -31,11 +31,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Paso 4: Compilar el proyecto Angular
+      # Paso 4: Configurar la versión de Java (Java 17)
+      - name: Setup Java 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      # Paso 5: Compilar el proyecto Angular
       - name: Build project
         run: npm run build
 
-      # Paso 5: Ejecutar análisis de SonarCloud
+      # Paso 6: Ejecutar análisis de SonarCloud
       - name: Run SonarCloud analysis
         run: |
           npx sonar-scanner \
