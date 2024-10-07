@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:coverage": "jest --coverage"  // Este script ejecuta las pruebas con cobertura
+    "test:coverage": "jest --coverage" 
   },
   "private": true,
   "dependencies": {
