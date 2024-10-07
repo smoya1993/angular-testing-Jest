@@ -36,6 +36,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
+          distribution: 'temurin'
 
       # Paso 5: Compilar el proyecto Angular
       - name: Build project
