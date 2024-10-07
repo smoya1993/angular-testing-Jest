@@ -1,4 +1,4 @@
-name: CI Angular with SonarCloud
+name: CI Angular with Jest and SonarCloud
 
 on:
   push:
@@ -20,24 +20,28 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Especifica la versión de Node.js que necesita tu proyecto
+          node-version: '16'
 
       # Paso 3: Instalar dependencias
       - name: Install dependencies
         run: npm install
 
-      # Paso 4: Configurar la versión de Java (Java 17)
+      # Paso 4: Ejecutar pruebas con Jest
+      - name: Run Jest tests with coverage
+        run: npm run test:coverage
+
+      # Paso 5: Configurar la versión de Java (Java 17)
       - name: Setup Java 17
         uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # Paso 5: Compilar el proyecto Angular
+      # Paso 6: Compilar el proyecto Angular
       - name: Build project
         run: npm run build
 
-      # Paso 6: Ejecutar análisis de SonarCloud
+      # Paso 7: Ejecutar análisis de SonarCloud y enviar cobertura
       - name: Run SonarCloud analysis
         run: |
           npx sonar-scanner \
@@ -45,6 +49,7 @@ jobs:
             -Dsonar.organization=${{ env.SONAR_ORGANIZATION }} \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }} \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
             -Dsonar.c.file.suffixes=- \
             -Dsonar.cpp.file.suffixes=- \
             -Dsonar.objc.file.suffixes=-
