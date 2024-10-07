@@ -1,0 +1,48 @@
+name: CI Angular with SonarCloud
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - master
+  pull_request:
+    branches:
+      - main
+      - develop
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Checkout del código del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Paso 2: Configurar la versión de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12.11.1'  # Especifica la versión de Node.js que necesita tu proyecto
+
+      # Paso 3: Instalar dependencias
+      - name: Install dependencies
+        run: npm install
+
+      # Paso 4: Ejecutar pruebas de unidad
+      # - name: Run unit tests
+      #  run: npm test -- --watch=false --browsers=ChromeHeadless
+
+      # Paso 5: Compilar el proyecto Angular
+      - name: Build project
+        run: npm run build -- --prod
+
+      # Paso 6: Ejecutar análisis de SonarCloud
+      - name: Run SonarCloud analysis
+        run: npx sonar-scanner \
+          -Dsonar.projectKey=front-organization-1234-1 \
+          -Dsonar.organization=front-organization-1234-1 \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
