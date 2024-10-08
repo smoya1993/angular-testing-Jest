@@ -15,12 +15,12 @@ export class CharizardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.pokemonService.getPokemon(6)
+   /*this.pokemonService.getPokemon(6)
       .subscribe( pokemon => {
         this.charizard = pokemon;
         // console.log(pokemon);
       });
-
+*/
   }
 
 }
